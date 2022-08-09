@@ -1,0 +1,43 @@
+{% extends "base.html"%} {% block title %}Home{% endblock %}
+{% block content %}
+
+{{ckeditor.load()}}
+
+<div class="row ms-1 me-1 mt-5" style="display: flex; height:85vh; align-items:center;">
+    <div class="card" style="border-radius: 0.5rem; " >
+        <div class="card-body">
+            <div class="row">
+                <div class="col">
+                    <h5 class="modal-title mb-3">Edit note</h5>
+                </div>
+                <div class="col">
+                    <button type="button" class="btn-close float-end" data-dismiss="modal" aria-label="Close" onClick="returnHome()">
+                    </button>
+                </div>
+            </div>
+                
+            <form method="POST">
+                <label for="title" class="mb-1">Title</label>
+                <textarea name="title" id="title" class="form-control mb-2" placeholder="Write something..." rows="1">{{title}}</textarea>
+                
+                <label for="content" class="mb-1">Content</label>
+                {{ ckeditor.create(value=article_body) }}
+                
+                <br />
+                <div align="center">
+                </div>
+                <div class="modal-footer justify-content-between">                    
+                    <p class="mr-auto">{{time}}</p>                                
+                    <div>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>  
+                </div>
+            </form>    
+        </div>
+                
+    </div>
+</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>
+
+{% endblock %}

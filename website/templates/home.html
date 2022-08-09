@@ -1,0 +1,82 @@
+{% extends "base.html"%} {% block title %}Home{% endblock %}
+{% block content %}
+
+{{ckeditor.load()}}
+
+<div class="row mt-5 mb-5">
+    <div class="col">
+        <h1 class="display-5 fw-bold ">Notes</h1>
+    </div>
+    <div class="col">
+        <button type="button" class="btn btn-primary float-end" data-toggle="modal" data-target="#newNote">
+            <i class="fas fa-plus"></i>
+        </button>
+    </div>
+</div>
+    <!-- Modal -->
+<div class="modal modal-xl fade" id="newNote" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" >Add note</h5>
+            <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
+            </button>
+            </div>
+            <div class="modal-body">
+                <form method="POST">
+                    <label for="title" class="mb-1">Title</label>
+                    <textarea name="title" id="title" class="form-control mb-1" placeholder="Write something..." rows="1"></textarea>
+                    
+                    <label for="content" class="mb-1">Content</label>
+                    {{ ckeditor.create() }}
+                    
+                    <br />
+                    <div align="center">
+                    </div>
+                    <div class="modal-footer justify-content-between">                    
+                        <p class="mr-auto">{{time}}</p>                                
+                        <div>
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>  
+                    </div>
+                </form>
+            </div>    
+        </div>
+    </div>
+</div>
+
+    <div class="row mb-5" data-masonry='{"percentPosition": true }'>
+        {% for note in user.notes %}
+        <div class="col-xl-6 mt-3">
+            <div class="card" style="border-radius: 15px;">
+                <div class="card-body">
+                    <div class="row mb-2">
+                        <div class="col-8">
+                            <h5 class="card-title">{{note.title}}</h5>
+                            <p class="text-muted">{{note.time.strftime("%B %d, %I:%M %p")}}</p>
+                        </div>
+                        <div class="col-4">
+                            <div class="dropdown float-end dropdown-pull-right">
+                                <button class="btn btn-outline-secondary dropdown-btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa-solid fa-ellipsis"></i>
+                                </button>
+                                    <div class="dropdown-menu mt-2" aria-labelledby="dropdownMenuButton" style="right: 0px">   
+                                        <a class="dropdown-item" href="#" onClick="editNote({{ note.id }})" data-target="#editNote"><i class="fas fa-edit me-3"></i> Edit</a>
+                                        <a class="dropdown-item" href="#" onClick="duplicateNote({{ note.id }})"><i class="fa-solid fa-clone me-3"></i> Duplicate</a>
+                                        <a class="dropdown-item" href="#" onClick="deleteNote({{ note.id }})"><i class="fa-solid fa-trash me-3"></i> Delete</a>                    
+                                    </div> 
+                            </div>               
+                        </div>
+                    </div>
+                    <p class="card-text">{{note.data | safe}}</p>
+                    
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>
+
+{% endblock %}
+
