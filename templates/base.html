@@ -112,8 +112,6 @@
       <div class="container">
         {% block content %}
         {% endblock %}
-        <footer class="pt-3 mt-4 text-muted border-top">
-        </footer>
       </div>
 
 
@@ -124,7 +122,7 @@
       setTimeout(function () {
         // Closing the alert
         $('#alert').alert('close');
-        }, 4000);
+        }, 2000);
     </script>
 
     <script type="text/javascript" src="{{ url_for('static', filename='index.js') }}"></script>
