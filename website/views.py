@@ -39,12 +39,12 @@ def edit_note(noteId):
     note = Note.query.get(noteId)
     if note:
         if note.user_id == current_user.id and request.method == 'POST' and request.form.get('ckeditor'):
-            note.data = request.form.get('ckeditor')
-            note.title = request.form.get('title')
-            note.time = datetime.datetime.utcnow()
-            db.session.commit()
-            flash('Note updated!', category='success')
-            return redirect('/')
+                note.data = request.form.get('ckeditor')
+                note.title = request.form.get('title')
+                note.time = datetime.datetime.utcnow()
+                db.session.commit()
+                flash('Note updated!', category='success')
+                return redirect('/')
     return render_template("edit.html", user=current_user, title=note.title, article_body=note.data, time=datetime.datetime.utcnow().strftime("%B %d, %I:%M %p"))
 
 @views.route('/duplicate-note/' , methods=['POST'])

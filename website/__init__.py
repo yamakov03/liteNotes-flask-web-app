@@ -5,13 +5,14 @@ from flask_login import LoginManager
 from flask_ckeditor import CKEditor
 
 ckeditor = CKEditor()
+
 db = SQLAlchemy()
 DB_NAME = "database.db"
 
 def create_app():
     app = Flask(__name__)
-    app.config['SECRET_KEY'] = 'ghdghdf ghdfghd'
-    app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}.sqlite'   
+    app.config['SECRET_KEY'] = 'M@$H238p4fmOIsdklfnkadjsfh9uq456wvhdefgF@$Ff4575867jfghve@%$Gsdfgd5780ndfht36vu4'
+    app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}.sqlite'
     db.init_app(app)
 
     ckeditor.init_app(app)

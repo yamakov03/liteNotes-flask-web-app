@@ -4,59 +4,54 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- JavaScript Bundle with Popper -->
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
-    <!-- Bootstrap CSS -->
-    <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
     <link href="../static/style.css" rel="stylesheet">
-
-    <link
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-    rel="stylesheet"
-    />
-    
-    <script
-    src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-    crossorigin="anonymous"
-  ></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
   
-    <title>{% block title %}Home{% endblock %}</title>
+    <title>{% block title %}LiteNote{% endblock %}</title>
 </head>
 <body>
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-md navbar-light bg-light py-2">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">LiteNotes</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+          <a class="navbar-brand" href="#">       
+             <h5 style="margin-bottom: 0px;"><i class="fa-regular fa-note-sticky me-2"></i>LiteNote</h5>
+          </a>
+          <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fa fa-navicon" style="font-size:25px;"></i>
+
           </button>
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav me-auto">
               {% if user.is_authenticated %}
-              <a class="nav-item nav-link" id="home" href="/">Home</a>
-              
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Hello, {{user.first_name}}
-                </a>
-                <ul class="dropdown-menu mb-2">
-                  <li><a class="dropdown-item" id="logout" href="/logout">Logout</a></li>
-                  <li><a class="dropdown-item" type="button" data-toggle="modal" data-target="#deleteAccount" href="#">Delete account</a></li>
-                </ul>
-              </li>
-
+              <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
               {% else %}
               <a class="nav-item nav-link" id="login" href="/login">Login</a>
               <a class="nav-item nav-link" id="signUp" href="/sign-up">Sign Up</a>
               {% endif %}
             </ul>
-            {% if user.is_authenticated %}       
-            <form class="d-flex" role="search">
-              <input class="form-control search-group-append" type="search" placeholder="Search" aria-label="Search" name="searched">
-              <button class="btn btn-primary input-group-append"><i class="fas fa-search"></i></button>
-
-            </form>
+            {% if user.is_authenticated %}
+            <ul class="navbar-nav">
+              <li class="nav-item dropdown me-5">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Hello, {{user.first_name}}
+                </a>
+                <ul class="dropdown-menu dropdown-menu-lg-end">
+                  <li><a class="dropdown-item" id="logout" href="/logout">Logout</a></li>
+                  <li><a class="dropdown-item" type="button" data-toggle="modal" data-target="#deleteAccount" href="#">Delete account</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li>
+                    <p class="ps-3 pe-3 pb-0 mb-0 text-muted">
+                      Made in 2022 by <a href="
+                      " target="_blank">Daniel</a>
+                    </p>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            
             {% endif %}
 
           </div>
@@ -116,6 +111,8 @@
       <div class="container">
         {% block content %}
         {% endblock %}
+        <footer class="pt-3 mt-4 text-muted border-top">
+        </footer>
       </div>
 
 
