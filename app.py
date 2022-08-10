@@ -18,6 +18,7 @@ def create_app():
     app.config['SECRET_KEY'] = 'M@$H238p4fmOIsdklfnkadjsfh9uq456wvhdefgF@$Ff4575867jfghve@%$Gsdfgd5780ndfht36vu4'
     # app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}.sqlite'
     app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL').replace("postgres://", "postgresql://", 1)
+    app.settings['ALLOWED_HOSTS'] = ["litenotes.herokuapp.com"]
     
     db.init_app(app)
     csrf.init_app(app)

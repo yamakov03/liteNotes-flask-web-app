@@ -47,7 +47,7 @@ def edit_note(noteId):
                 return redirect('/')
     return render_template("edit.html", user=current_user, title=note.title, article_body=note.data, time=datetime.datetime.utcnow().strftime("%B %d, %I:%M %p"))
 
-@views.route('/duplicate-note/' , methods=['POST'])
+@views.route('/duplicate-note' , methods=['POST'])
 def duplicate_note():
     note = json.loads(request.data)
     noteId = note['noteId']
