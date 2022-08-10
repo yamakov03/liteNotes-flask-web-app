@@ -59,5 +59,7 @@ def create_database(app):
 if __name__ == '__main__':
     app = create_app()
     app.run(debug=True)
+    app.app_context().push()
 else:
     gunicorn_app = create_app()
+    app.app_context().push()
