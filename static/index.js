@@ -1,10 +1,7 @@
 function deleteNote(noteId) {
-    fetch('https://litenotes.herokuapp.com/delete-note', {
+    fetch('/delete-note', {
         method: 'POST',
-        body: JSON.stringify({noteId: noteId}),
-        headers: {
-            'Content-Type': 'application/json',
-        }
+        body: JSON.stringify({noteId: noteId})
     }).then((_res) => {
         window.location.href = "/";
     });
@@ -15,12 +12,9 @@ function editNote(noteId) {
 }
 
 function duplicateNote(noteId) {
-    fetch('https://litenotes.herokuapp.com/duplicate-note', {
+    fetch('/duplicate-note', {
         method: 'POST',
-        body: JSON.stringify({noteId: noteId}),
-        headers: {
-            'Content-Type': 'application/json',
-        }
+        body: JSON.stringify({noteId: noteId})
     }).then((_res) => {
         window.location.href = "/";
     });

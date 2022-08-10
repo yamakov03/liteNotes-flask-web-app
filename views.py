@@ -5,6 +5,7 @@ import json
 from app import db
 import datetime
 from werkzeug.security import check_password_hash
+from . import csrf
 
 views = Blueprint('views', __name__)
 
@@ -24,6 +25,7 @@ def home():
     return render_template("home.html", user=current_user, time=datetime.datetime.utcnow().strftime("%A, %B %d, %I:%M %p"))
 
 @views.route('/delete-note', methods=['POST'])
+@csrf.exempt
 def delete_note():
     note = json.loads(request.data)
     noteId = note['noteId']
@@ -48,6 +50,7 @@ def edit_note(noteId):
     return render_template("edit.html", user=current_user, title=note.title, article_body=note.data, time=datetime.datetime.utcnow().strftime("%B %d, %I:%M %p"))
 
 @views.route('/duplicate-note' , methods=['POST'])
+@csrf.exempt
 def duplicate_note():
     note = json.loads(request.data)
     noteId = note['noteId']
