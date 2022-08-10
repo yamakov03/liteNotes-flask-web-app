@@ -1,9 +1,10 @@
-from flask import Flask, render_template
+from flask import Flask, session, app
 from flask_sqlalchemy import SQLAlchemy
 from os import path
 from flask_login import LoginManager
 from flask_ckeditor import CKEditor
 from flask_wtf.csrf import CSRFProtect
+from datetime import timedelta
 
 ckeditor = CKEditor()
 csrf = CSRFProtect()
@@ -37,6 +38,11 @@ def create_app():
     @login_manager.user_loader
     def load_user(id):
         return User.query.get(int(id))
+
+    @app.before_request
+    def make_session_permanent():
+        session.permanent = True
+        app.permanent_session_lifetime = timedelta(minutes=5)
 
     return app
 
