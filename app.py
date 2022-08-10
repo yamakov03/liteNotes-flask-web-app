@@ -61,5 +61,5 @@ if __name__ == '__main__':
     app = create_app()
     app.run(debug=True)
 else:
-    gunicorn_app = app
+    gunicorn_app = create_app()
 
