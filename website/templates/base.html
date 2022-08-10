@@ -70,6 +70,7 @@
             <div class="modal-body">
               Are you sure? Enter your email and password to confirm.
               <form action="/delete-account" method="POST">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                 <div class="form-group">
                   <input type="email" class="form-control mb-2 mt-2" name="email" placeholder="Email">
                 </div>

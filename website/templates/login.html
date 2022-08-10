@@ -13,6 +13,7 @@
             <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
                 <p class="text-left h1 fw-bold mb-4">Login</p>      
                 <form method="POST" accept-charset="utf-8" class="needs-validation" novalidate>
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                     <div class="form-group mb-3">
                     <input
                         type="email"

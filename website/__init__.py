@@ -1,10 +1,12 @@
-from flask import Flask
+from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from os import path
 from flask_login import LoginManager
 from flask_ckeditor import CKEditor
+from flask_wtf.csrf import CSRFProtect
 
 ckeditor = CKEditor()
+csrf = CSRFProtect()
 
 db = SQLAlchemy()
 DB_NAME = "database.db"
@@ -14,6 +16,7 @@ def create_app():
     app.config['SECRET_KEY'] = 'M@$H238p4fmOIsdklfnkadjsfh9uq456wvhdefgF@$Ff4575867jfghve@%$Gsdfgd5780ndfht36vu4'
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}.sqlite'
     db.init_app(app)
+    csrf.init_app(app)
 
     ckeditor.init_app(app)
 
@@ -41,3 +44,4 @@ def create_database(app):
     if not path.exists('website/' + DB_NAME):
         db.create_all(app=app)
         print('Created Database!')
+
