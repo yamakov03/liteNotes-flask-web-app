@@ -34,6 +34,7 @@ def delete_note():
         if note.user_id == current_user.id:
             db.session.delete(note)
             db.session.commit()
+            flash('Note deleted!', category='success')
     return jsonify({})
 
 @views.route('/edit-note/<int:noteId>' , methods=['GET','POST'])
