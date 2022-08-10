@@ -5,7 +5,7 @@ import json
 from app import db
 import datetime
 from werkzeug.security import check_password_hash
-from . import csrf
+from app import csrf
 
 views = Blueprint('views', __name__)
 
