@@ -125,6 +125,12 @@
     </script>
 
     <script>
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: 'instant',
+      });
+      
       document.addEventListener("DOMContentLoaded", function(event) { 
           var scrollpos = localStorage.getItem('scrollpos');
           if (scrollpos) window.scrollTo(0, scrollpos);
