@@ -33,6 +33,10 @@ def create_app():
             'cdn.jsdelivr.net',
             'code.jquery.com',
             'maxcdn.bootstrapcdn.com',
+            'fontawesome.com',
+            'fonts.googleapis.com',
+            'cdn.ckeditor.com',
+            'w3.org',
         ],
         'img-src': '*'
     }
