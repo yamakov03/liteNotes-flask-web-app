@@ -6,6 +6,7 @@ from app import db
 import datetime
 from werkzeug.security import check_password_hash
 from app import csrf
+from sqlalchemy.sql import collate
 
 views = Blueprint('views', __name__)
 
@@ -80,16 +81,23 @@ def delete_account():
             flash('Email does not exist.', category='error')
     return redirect('/')
 
-# @views.route('/?sortBy=<sortBy>', methods=['GET, POST'])
-@views.route('/sort', methods=['POST'])
+@views.route('/sort-by/<sortBy>', methods=['GET', 'POST'])
 @csrf.exempt
-def sort_notes():
-    sortBy = json.loads(request)
+def sort_notes(sortBy):
+    if request.method == 'POST':
+        note = request.form.get('ckeditor')
+        title = request.form.get('title')
+        if len(note) < 1:
+            flash('Note is too short!', category='error')
+        else:
+            new_note = Note(data=note, user_id=current_user.id, title=title)
+            db.session.add(new_note)
+            db.session.commit()
+            flash('Note added!', category='success')
     if sortBy == 'date':
         notes = Note.query.filter_by(user_id=current_user.id).order_by(Note.time.desc()).all()
     elif sortBy == 'title':
-        notes = Note.query.filter_by(user_id=current_user.id).order_by(Note.title.desc()).all()
+        notes = Note.query.filter_by(user_id=current_user.id).order_by(collate(Note.title, 'NOCASE').asc()).all()
     elif sortBy == 'none':
         notes = Note.query.filter_by(user_id=current_user.id).all()
-    flash('Notes sorted!', category='success')
-    return render_template("login.html", notes=notes, user=current_user, time=datetime.datetime.utcnow().strftime("%A, %B %d, %I:%M %p"))
+    return render_template("home.html", notes=notes, user=current_user, time=datetime.datetime.utcnow().strftime("%A, %B %d, %I:%M %p"))
