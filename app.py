@@ -20,6 +20,7 @@ def create_app():
     # app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}.sqlite'
     app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL').replace("postgres://", "postgresql://", 1)
     app.config['ALLOWED_HOSTS'] = ["litenotes.herokuapp.com"]
+    app.config['PERMANENT_SESSION_LIFETIME'] =  timedelta(minutes=5)
     
     db.init_app(app)
     csrf.init_app(app)
@@ -63,11 +64,6 @@ def create_app():
     @login_manager.user_loader
     def load_user(id):
         return User.query.get(int(id))
-
-    @app.before_request
-    def make_session_permanent():
-        session.permanent = True
-        app.permanent_session_lifetime = timedelta(minutes=5)
 
     return app
 
