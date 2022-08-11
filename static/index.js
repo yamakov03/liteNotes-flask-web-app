@@ -20,8 +20,17 @@ function duplicateNote(noteId) {
     });
 }
 
+// function sortNotes(sortBy) {
+//     window.location.href = "/?sortBy=" + sortBy;
+// }
+
 function sortNotes(sortBy) {
-    window.location.href = "/?sortBy=" + sortBy;
+    fetch('/sort', {
+        method: 'POST',
+        body: JSON.stringify({sortBy: sortBy})
+    }).then((_res) => {
+        window.location.href = "/";
+    });
 }
 
 function returnHome() {

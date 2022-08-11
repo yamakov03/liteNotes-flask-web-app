@@ -80,13 +80,16 @@ def delete_account():
             flash('Email does not exist.', category='error')
     return redirect('/')
 
-@views.route('/?sortBy=<sortBy>', methods=['GET, POST'])
+# @views.route('/?sortBy=<sortBy>', methods=['GET, POST'])
+@views.route('/sort', methods=['POST'])
 @csrf.exempt
-def sort_notes(sortBy):
+def sort_notes():
+    sortBy = json.loads(request)
     if sortBy == 'date':
         notes = Note.query.filter_by(user_id=current_user.id).order_by(Note.time.desc()).all()
     elif sortBy == 'title':
         notes = Note.query.filter_by(user_id=current_user.id).order_by(Note.title.desc()).all()
     elif sortBy == 'none':
         notes = Note.query.filter_by(user_id=current_user.id).all()
+    flash('Notes sorted!', category='success')
     return render_template("login.html", notes=notes, user=current_user, time=datetime.datetime.utcnow().strftime("%A, %B %d, %I:%M %p"))
