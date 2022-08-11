@@ -22,7 +22,7 @@ def home():
             db.session.add(new_note)
             db.session.commit()
             flash('Note added!', category='success')
-    return render_template("home.html", user=current_user, time=datetime.datetime.utcnow().strftime("%A, %B %d, %I:%M %p"))
+    return render_template("home.html", notes=current_user.notes, user=current_user, time=datetime.datetime.utcnow().strftime("%A, %B %d, %I:%M %p"))
 
 @views.route('/delete-note', methods=['POST'])
 @csrf.exempt
@@ -79,3 +79,14 @@ def delete_account():
         else:
             flash('Email does not exist.', category='error')
     return redirect('/')
+
+@views.route('/?sortBy=<sortBy>', methods=['GET, POST'])
+@csrf.exempt
+def sort_notes(sortBy):
+    if sortBy == 'date':
+        notes = Note.query.filter_by(user_id=current_user.id).order_by(Note.time.desc()).all()
+    elif sortBy == 'title':
+        notes = Note.query.filter_by(user_id=current_user.id).order_by(Note.title.desc()).all()
+    elif sortBy == 'none':
+        notes = Note.query.filter_by(user_id=current_user.id).all()
+    return render_template("login.html", notes=notes, user=current_user, time=datetime.datetime.utcnow().strftime("%A, %B %d, %I:%M %p"))

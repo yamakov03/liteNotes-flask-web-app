@@ -3,12 +3,12 @@
 
 {{ckeditor.load()}}
 
-<div class="row ms-1 me-1 mt-3" style="display: flex; height:85vh; align-items:center;">
+<div class="row mt-3" style="display: flex; height:80vh; align-items:center;">
     <div class="card" style="border-radius: 0.5rem;" >
         <div class="card-body">
             <div class="row">
                 <div class="col">
-                    <h5 class="modal-title mb-3">Edit note</h5>
+                    <h5 class="modal-title mb-2">Edit note</h5>
                 </div>
                 <div class="col">
                     <button type="button" class="btn-close float-end" data-dismiss="modal" aria-label="Close" onClick="returnHome()">
@@ -23,11 +23,9 @@
                 
                 <label for="content" class="mb-1">Content</label>
                 {{ ckeditor.create(value=article_body) }}
-                {{ ckeditor.config(height=300) }}
+                {{ ckeditor.config(height=275) }}
 
                 <br />
-                <div align="center">
-                </div>
                 <div class="modal-footer justify-content-between">                    
                     <p class="mr-auto">{{time}}</p>                                
                     <div>

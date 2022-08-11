@@ -48,12 +48,30 @@
 </div>
 
 <div class="row">
-    <div class="col-xl-6">
-            <div class="form-group has-search" role="search">
-                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-                <span class="fa fa-search form-control-feedback"></span>
-                <input type="search" placeholder="Search all" name="search" id="searchInput" class="myform searchbox-input deletable" onkeyup="buttonUp();">
-            </div>     
+    <div class="col-xl-6 d-flex align-items-center">   
+        <div class="dropdown me-2">
+            <button type="button" class="btn" data-bs-toggle="dropdown" aria-expanded="false" style="border-radius: 0.375rem">
+                <i class="fa-solid fa-filter fa-lg" style="color: #aaa;"></i>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-start" aria-labelledby="sortBy">
+                <li>
+                    <p class="ps-3 pe-3 pb-0 mb-0 text-muted">
+                        Sort by
+                    </p>
+                </li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#" onClick="sortNotes('date' )">Date</a></li>
+                <li><a class="dropdown-item" href="#" onClick="sortNotes('title')">Title</a></li>
+                <li><a class="dropdown-item" href="#" onClick="sortNotes('none')">None</a></li>
+            </ul>
+        </div>          
+        <div class="form-group has-search" role="search" style="width: 300px">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+            <span class="fa fa-search form-control-feedback"></span>
+            <input type="search" placeholder="Search all" name="search" id="searchInput" class="myform searchbox-input deletable" onkeyup="buttonUp();">
+        </div>    
+
+            
     </div>
        
 </div>
@@ -61,9 +79,10 @@
     <div class="d-flex no-result d-none justify-content-center">
             <h4 class="mt-5">No results found</h4>
     </div>
+
     <div class="row mb-5 grid" data-masonry='{"percentPosition": true }'> 
-        {% for note in user.notes %}
-        <div class="cardFrame col-xl-6 mt-3 col-md-12">
+        {% for note in notes %}
+        <div class="cardFrame col-xl-6 mt-3 col-md-12 card-deck">
             <div class="card" style="border-radius: 15px;">
                 <div class="card-body">
                     <div class="row mb-2">
@@ -77,9 +96,9 @@
                                     <i class="fa-solid fa-ellipsis fa-lg"></i>
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-end">
-                                    <li><a class="dropdown-item" href="#" onClick="editNote({{ note.id }})" data-target="#editNote"><i class="fas fa-edit me-3"></i> Edit</a></li>
-                                    <li><a class="dropdown-item" href="#" onClick="duplicateNote({{ note.id }})"><i class="fa-solid fa-clone me-3"></i> Duplicate</a></li>
-                                    <li><a class="dropdown-item" href="#" onClick="deleteNote({{ note.id }})"><i class="fa-solid fa-trash me-3"></i> Delete</a></li>
+                                    <li><a class="dropdown-item" onClick="editNote({{ note.id }})" data-target="#editNote"><i class="fas fa-edit me-3"></i> Edit</a></li>
+                                    <li><a class="dropdown-item" onClick="duplicateNote({{ note.id }})"><i class="fa-solid fa-clone me-3"></i> Duplicate</a></li>
+                                    <li><a class="dropdown-item" onClick="deleteNote({{ note.id }})"><i class="fa-solid fa-trash me-3"></i> Delete</a></li>
                                 </ul>
                             </div>               
                         </div>
@@ -93,54 +112,7 @@
 
     <footer class="pt-3 mt-4 text-muted border-top">
     </footer>
-    <script>
-        var buttonUp = () => {
-            const input = document.querySelector(".searchbox-input");
-            const cards = document.getElementsByClassName("cardFrame");
-            let filter = input.value.toLowerCase();
-            var result = true;
-            for (let i = 0; i < cards.length; i++) {
-                let title = cards[i].querySelector(".card-body");
-                if (title.innerText.toLowerCase().indexOf(filter) > -1) {
-                    cards[i].classList.remove("d-none")
-                } else {
-                    cards[i].classList.add("d-none")
-                }
-            }
-            var grid = document.querySelector('.grid')
-            var msnry = Masonry.data( grid )
-            msnry.layout()
-
-            for(let i = 0; i < cards.length; i++){
-                if(cards[i].classList.contains("d-none")){
-                    result = false;
-                }else{
-                    result = true;
-                    break;
-                }
-            }
-            if (!result) {
-                document.querySelector(".no-result").classList.remove("d-none")
-            } else {
-                document.querySelector(".no-result").classList.add("d-none")
-            }
-        }
-        
-        document.getElementById('searchInput').addEventListener('input', (e) => {
-            const cards = document.getElementsByClassName("cardFrame");
-            if (e.currentTarget.value.length == 0 && e.currentTarget.value == "") {
-                for(let i = 0; i < cards.length; i++){
-                    cards[i].classList.remove("d-none")
-                }
-                var grid = document.querySelector('.grid')
-                var msnry = Masonry.data( grid )
-                msnry.layout()
-                document.querySelector(".no-result").classList.add("d-none")
-            }
-          })
-
-    </script>
-
+    <script type="text/javascript" src="{{ url_for('static', filename='notes.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>
 
 {% endblock %}

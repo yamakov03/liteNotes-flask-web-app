@@ -20,6 +20,10 @@ function duplicateNote(noteId) {
     });
 }
 
+function sortNotes(sortBy) {
+    window.location.href = "/?sortBy=" + sortBy;
+}
+
 function returnHome() {
     window.location.href = "/";
 }
