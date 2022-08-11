@@ -6,6 +6,7 @@ from flask_login import LoginManager
 from flask_ckeditor import CKEditor
 from flask_wtf.csrf import CSRFProtect
 from datetime import timedelta
+from flask_talisman import Talisman
 
 ckeditor = CKEditor()
 csrf = CSRFProtect()
@@ -22,8 +23,8 @@ def create_app():
     
     db.init_app(app)
     csrf.init_app(app)
-
     ckeditor.init_app(app)
+    Talisman(app)
 
     from views import views
     from auth import auth
