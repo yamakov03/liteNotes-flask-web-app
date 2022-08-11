@@ -53,7 +53,7 @@
                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                 <span class="fa fa-search form-control-feedback"></span>
                 <input type="search" placeholder="Search all" name="search" id="searchInput" class="myform searchbox-input deletable" onkeyup="buttonUp();">
-            </div>      
+            </div>     
     </div>
        
 </div>
@@ -127,7 +127,7 @@
         }
         
         document.getElementById('searchInput').addEventListener('input', (e) => {
-            const cards = document.getElementsByClassName("card");
+            const cards = document.getElementsByClassName("cardFrame");
             if (e.currentTarget.value.length == 0 && e.currentTarget.value == "") {
                 for(let i = 0; i < cards.length; i++){
                     cards[i].classList.remove("d-none")
