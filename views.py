@@ -6,7 +6,7 @@ from app import db
 import datetime
 from werkzeug.security import check_password_hash
 from app import csrf
-from sqlalchemy.sql import collate
+from sqlalchemy import func
 
 views = Blueprint('views', __name__)
 
@@ -97,7 +97,7 @@ def sort_notes(sortBy):
     if sortBy == 'date':
         notes = Note.query.filter_by(user_id=current_user.id).order_by(Note.time.desc()).all()
     elif sortBy == 'title':
-        notes = Note.query.filter_by(user_id=current_user.id).order_by(collate(Note.title, 'NOCASE').asc()).all()
+        notes = Note.query.filter_by(user_id=current_user.id).order_by(func.lower(Note.title).asc()).all()
     elif sortBy == 'none':
         notes = Note.query.filter_by(user_id=current_user.id).all()
     return render_template("home.html", notes=notes, user=current_user, time=datetime.datetime.utcnow().strftime("%A, %B %d, %I:%M %p"))
