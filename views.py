@@ -35,7 +35,6 @@ def delete_note():
         if note.user_id == current_user.id:
             db.session.delete(note)
             db.session.commit()
-            flash('Note deleted!', category='success')
     return jsonify({})
 
 @views.route('/edit-note/<int:noteId>' , methods=['GET','POST'])
@@ -62,7 +61,6 @@ def duplicate_note():
             new_note = Note(data=note.data, user_id=current_user.id, title=note.title)
             db.session.add(new_note)
             db.session.commit()
-            flash('Note duplicated!', category='success')
     return jsonify({})
 
 @views.route('/delete-account', methods=['POST'])
