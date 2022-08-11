@@ -24,7 +24,20 @@ def create_app():
     db.init_app(app)
     csrf.init_app(app)
     ckeditor.init_app(app)
-    Talisman(app)
+
+    csp = {
+    'default-src': [
+            '\'self\'',
+            '\'unsafe-inline\'',
+            'cdnjs.cloudflare.com',
+            'cdn.jsdelivr.net',
+            'code.jquery.com',
+            'maxcdn.bootstrapcdn.com',
+        ],
+        'img-src': '*'
+    }
+
+    talisman = Talisman(app, content_security_policy=csp)
 
     from views import views
     from auth import auth
