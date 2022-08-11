@@ -38,7 +38,10 @@ def create_app():
             'cdn.ckeditor.com',
             'w3.org',
         ],
-        'img-src': '*'
+        'img-src': [
+            '*',
+            'data:',
+        ]
     }
 
     talisman = Talisman(app, content_security_policy=csp)
