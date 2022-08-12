@@ -5,6 +5,10 @@
   padding-bottom: 5px;
 }
 
+.alert {
+  margin-top: 53px;
+}
+
 .myform {
   width: 100%;
   display: block;
