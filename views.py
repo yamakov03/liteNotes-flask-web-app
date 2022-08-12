@@ -23,7 +23,7 @@ def home():
             db.session.add(new_note)
             db.session.commit()
             flash('Note added!', category='success')
-    return render_template("home.html", notes=current_user.notes, user=current_user, time=datetime.datetime.utcnow().strftime("%A, %B %d, %I:%M %p"))
+    return render_template("home.html", notes=current_user.notes, user=current_user, time=datetime.datetime.utcnow().strftime("%A, %B %d, %I:%M %p").replace(' 0', ' '))
 
 @views.route('/delete-note', methods=['POST'])
 @csrf.exempt
@@ -48,7 +48,7 @@ def edit_note(noteId):
                 db.session.commit()
                 flash('Note updated!', category='success')
                 return redirect('/')
-    return render_template("edit.html", user=current_user, title=note.title, article_body=note.data, time=datetime.datetime.utcnow().strftime("%B %d, %I:%M %p"))
+    return render_template("edit.html", user=current_user, title=note.title, article_body=note.data, time=datetime.datetime.utcnow().strftime("%B %d, %I:%M %p").replace(' 0', ' '))
 
 @views.route('/duplicate-note' , methods=['POST'])
 @csrf.exempt
@@ -100,4 +100,4 @@ def sort_notes(sortBy):
         notes = Note.query.filter_by(user_id=current_user.id).order_by(func.lower(Note.title).asc()).all()
     elif sortBy == 'none':
         notes = Note.query.filter_by(user_id=current_user.id).all()
-    return render_template("home.html", notes=notes, user=current_user, time=datetime.datetime.utcnow().strftime("%A, %B %d, %I:%M %p"))
+    return render_template("home.html", notes=notes, user=current_user, time=datetime.datetime.utcnow().strftime("%A, %B %d, %I:%M %p").replace(' 0', ' '))
