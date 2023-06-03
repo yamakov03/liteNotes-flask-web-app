@@ -7,7 +7,6 @@ from flask_ckeditor import CKEditor
 from flask_wtf.csrf import CSRFProtect
 from datetime import timedelta
 from flask_talisman import Talisman
-import uuid
 
 ckeditor = CKEditor()
 csrf = CSRFProtect()
@@ -17,10 +16,10 @@ DB_NAME = "database.db"
 
 def create_app():
     app = Flask(__name__)
-    app.config['SECRET_KEY'] = uuid.uuid4().hex
-    app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}.sqlite'
-    # app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL').replace("postgres://", "postgresql://", 1)
-    app.config['ALLOWED_HOSTS'] = ["lite-notes.vercel.app"]
+    app.config['SECRET_KEY'] = 'M@$H238p4fmOIsdklfnkadjsfh9uq456wvhdefgF@$Ff4575867jfghve@%$Gsdfgd5780ndfht36vu4'
+    # app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}.sqlite'
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL').replace("postgres://", "postgresql://", 1)
+    app.config['ALLOWED_HOSTS'] = ["litenotes.herokuapp.com"]
     app.config['PERMANENT_SESSION_LIFETIME'] =  timedelta(minutes=5)
     
     db.init_app(app)
@@ -48,7 +47,7 @@ def create_app():
 
     talisman = Talisman(app, content_security_policy=csp)
 
-    from api.views import views
+    from views import views
     from auth import auth
 
     app.register_blueprint(views, url_prefix='/')
@@ -75,10 +74,10 @@ def create_database(app):
 
 
 
-# if __name__ == '__main__':
-#     app = create_app()
-#     # app.run(debug=True, host= '192.168.1.140', port=5000)
-#     app.run(debug=True)
-# else:
-#     gunicorn_app = create_app()
+if __name__ == '__main__':
+    app = create_app()
+    # app.run(debug=True, host= '192.168.1.140', port=5000)
+    app.run(debug=True)
+else:
+    gunicorn_app = create_app()
 
