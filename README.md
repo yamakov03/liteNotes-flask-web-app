@@ -8,6 +8,8 @@ A full-stack CRUD web app using Python and Flask that allows users to easily cre
 ## Tech Used
 - Python
 - Flask
+- JS
+- HTML/CSS
 - Bootstrap
 - PostgresSQL
 
