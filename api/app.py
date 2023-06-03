@@ -48,7 +48,7 @@ def create_app():
 
     talisman = Talisman(app, content_security_policy=csp)
 
-    from views import views
+    from api.views import views
     from auth import auth
 
     app.register_blueprint(views, url_prefix='/')
@@ -75,10 +75,10 @@ def create_database(app):
 
 
 
-if __name__ == '__main__':
-    app = create_app()
-    # app.run(debug=True, host= '192.168.1.140', port=5000)
-    app.run(debug=True)
-else:
-    gunicorn_app = create_app()
+# if __name__ == '__main__':
+#     app = create_app()
+#     # app.run(debug=True, host= '192.168.1.140', port=5000)
+#     app.run(debug=True)
+# else:
+#     gunicorn_app = create_app()
 
