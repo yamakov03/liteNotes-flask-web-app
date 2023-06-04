@@ -12,6 +12,8 @@ A full-stack CRUD web app using Python and Flask that allows users to easily cre
 
 <img width="1119" alt="Screenshot 2023-06-03 at 4 56 33 PM" src="https://github.com/yamakov03/liteNotes-flask-web-app/assets/56325249/64d0870a-bdda-487b-a6c7-9343f50504a0">
 
+<br>
+Allows for search, sort, CRUD functionality with notes.
 <div class="flex">
   <img width="183" alt="Screenshot 2023-06-03 at 4 57 32 PM" src="https://github.com/yamakov03/liteNotes-flask-web-app/assets/56325249/dd7b4bf4-3ab7-4c3e-973f-6478f9b9ef3e">
 <img width="183" alt="Screenshot 2023-06-03 at 4 57 02 PM" src="https://github.com/yamakov03/liteNotes-flask-web-app/assets/56325249/5921d8e0-8af0-4bc9-b2bc-f25ca2156312">
