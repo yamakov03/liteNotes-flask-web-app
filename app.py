@@ -18,7 +18,8 @@ def create_app():
     app = Flask(__name__)
     app.config['SECRET_KEY'] = 'M@$H238p4fmOIsdklfnkadjsfh9uq456wvhdefgF@$Ff4575867jfghve@%$Gsdfgd5780ndfht36vu4'
     # app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}.sqlite'
-    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL').replace("postgres://", "postgresql://", 1)
+    # app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL').replace("postgres://", "postgresql://", 1)
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
     app.config['ALLOWED_HOSTS'] = ["litenotes.herokuapp.com"]
     app.config['PERMANENT_SESSION_LIFETIME'] =  timedelta(minutes=5)
     
