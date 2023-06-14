@@ -1,4 +1,4 @@
-# Litenotes: A minimalistic note-taking app
+# Litenotes: Lightweight Notes Web Application
 __Status:__ Completed
 
 A full-stack CRUD web app using Python + Flask that allows users to easily create, edit, and store notes.
